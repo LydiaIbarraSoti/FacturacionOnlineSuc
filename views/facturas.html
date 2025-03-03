@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Principal</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/estilos.css">
+    <style>
+    /* Clase para limitar el ancho de los inputs */
+    .short-input {
+      max-width: 100%; /* Permite que el input ocupe el 100% del contenedor en móviles */
+    }
+  </style>
+  </head>
+  <body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sistema Ejecutivo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <button id="logout" class="btn btn-danger">Cerrar Sesión</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+      <!-- Mensaje principal -->
+      <div class="row mb-4">
+        <div class="col text-center">
+          <h2 class="text-uppercase" id="mensajeSesion">TUS FACTURAS</h2>
+        </div>
+      </div>
+
+      <!-- Aviso sin registros -->
+      <div class="jumbotron jumbotron-fluid" id="aviso"
+        style="background-color: transparent; display: none;">
+        <div class="container">
+          <h1 class="display-4">Sin registros</h1>
+          <p class="lead">No se encontró información de ventas en el periodo
+            seleccionado.</p>
+        </div>
+      </div>
+
+      <!-- Sección de Importe destacado -->
+      <div class="card importe-card mb-4">
+        <div class="card-header">
+          Importe
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="Importe" class="form-label">Ingresa el importe antes de IVA:</label>
+            <input name="Importe" type="number" id="Importe"
+              class="form-control" min="0" step="1" placeholder="0" />
+          </div>
+          
+          <!-- <div class="text-center">
+                    <div id="alertError" class="alert alert-danger"
+                      role="alert" style="display:none;"></div>
+                    <div id="alertSuccess" class="alert alert-success"
+                      role="alert" style="display:none;">
+                      Tu factura estará lista en Microsip en unos minutos.
+                    </div>
+                    <button type="button" id="btnDatosFiscales"
+                      onclick="validarGuardarDF()" class="btn btn-primary">
+                      <i class="bi bi-save2"></i> Crear factura
+                    </button>
+                  </div> -->
+        </div>
+      </div>
+
+      <!-- Sección de Notas destacado -->
+      <div class="card importe-card mb-4">
+        <div class="card-header">
+          Notas adicionales
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="Notas" class="form-label">Notas:</label>
+            <input type="text" id="Notas" class="form-control"  />
+          </div>
+          
+          <div class="text-center">
+            <div id="alertError" class="alert alert-danger" role="alert" style="display:none;"></div>
+            <div id="alertSuccess" class="alert alert-success" role="alert" style="display:none;">
+              Tu factura estará lista en Microsip en unos minutos.
+            </div>
+            <button type="button" id="btnDatosFiscales"  onclick="validarGuardarDF()" class="btn btn-primary">
+              <i class="bi bi-save2"></i> Crear factura
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección para mostrar datos fiscales (solo lectura) -->
+      <div class="accordion" id="accordionDatos">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingDatos">
+            <button
+              class="accordion-button position-relative"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseDatos"
+              aria-expanded="false"
+              aria-controls="collapseDatos">
+              <span class="w-100 text-center fw-bold">MIS DATOS FISCALES</span>
+            </button>
+          </h2>
+          <div
+            id="collapseDatos"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingDatos"
+            data-bs-parent="#accordionDatos">
+            <div class="accordion-body">
+              <div class="card-body">
+                <form>
+                  <fieldset disabled>
+                    <!-- Fila 1: RFC y Nombre completo -->
+                    <div class="row mb-3 readonly-field">
+                      <div class="col-12 col-md-6">
+                        <label for="RFC" class="form-label">RFC: <span
+                            class="text-danger">*</span></label>
+                        <input name="RFC" type="text" id="RFC"
+                          class="form-control short-input" maxlength="13"
+                          value />
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label for="nombreF" class="form-label">Nombre
+                          completo: <span
+                            class="text-danger">*</span></label>
+                        <input name="name" type="text" id="nombreF"
+                          class="form-control short-input" value />
+                      </div>
+                    </div>
+
+                    <!-- Fila 2: Calle, Número y C.P. -->
+                    <div class="row mb-3 readonly-field">
+                      <div class="col-12 col-md-4">
+                        <label for="calleF" class="form-label">Calle: <span
+                            class="text-danger">*</span></label>
+                        <input name="calleF" type="text" id="calleF"
+                          class="form-control short-input" value />
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label for="numeroF" class="form-label">Número:
+                          <span class="text-danger">*</span></label>
+                        <input name="numeroF" type="text" id="numeroF"
+                          class="form-control short-input" value />
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label for="cpF" class="form-label">C.P.: <span
+                            class="text-danger">*</span></label>
+                        <input name="cpF" type="text" id="cpF"
+                          class="form-control short-input" maxlength="5"
+                          oninput="this.value = this.value.replace(/[^0-9]/g,'')"
+                          value />
+                      </div>
+                    </div>
+
+                    <!-- Fila 3: Colonia y País -->
+                    <div class="row mb-3 readonly-field">
+                      <div class="col-12 col-md-6">
+                        <label for="coloniaF" class="form-label">Colonia:
+                          <span class="text-danger">*</span></label>
+                        <input name="coloniaF" type="text" id="coloniaF"
+                          class="form-control short-input" value />
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label for="paisF" class="form-label">País: <span
+                            class="text-danger">*</span></label>
+                        <input name="paisF" type="text" id="paisF"
+                          class="form-control short-input" value />
+                      </div>
+                    </div>
+
+                    <!-- Fila 4: Estado y Ciudad -->
+                    <div class="row mb-3 readonly-field">
+                      <div class="col-12 col-md-6">
+                        <label for="estadoF" class="form-label">Estado:
+                          <span class="text-danger">*</span></label>
+                        <input name="estadoF" type="text" id="estadoF"
+                          class="form-control short-input" value />
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label for="ciudadF" class="form-label">Ciudad:
+                          <span class="text-danger">*</span></label>
+                        <input name="ciudadF" type="text" id="ciudadF"
+                          class="form-control short-input" value />
+                      </div>
+                    </div>
+
+                    <!-- Fila 5: Tipo de persona, Régimen Fiscal y Uso CFDI -->
+                    <div class="row mb-3 readonly-field">
+                      <div class="col-12 col-md-4">
+                        <label for="personaF" class="form-label">Tipo de
+                          persona: <span
+                            class="text-danger">*</span></label>
+                        <input name="personaF" type="text" id="personaF"
+                          class="form-control short-input" value />
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label for="regimenF" class="form-label">Régimen
+                          Fiscal: <span class="text-danger">*</span></label>
+                        <input name="regimenF" type="text" id="regimenF"
+                          class="form-control short-input" value />
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label for="usosCFDI" class="form-label">Uso CFDI:
+                          <span class="text-danger">*</span></label>
+                        <input name="usosCFDI" type="text" id="usosCFDI"
+                          class="form-control short-input" value />
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección de Tabla de Facturas -->
+        <div class="card mt-4">
+          <div class="card-header w-100 text-center fw-bold">
+            Facturas Generadas
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Folio</th>
+                    <th>Fecha Factura</th>
+                    <th>RFC Emisor</th>
+                    <th>RFC Receptor</th>
+                    <th>Método de Pago</th>
+                    <th>Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="facturasTableBody">
+                  <!-- Aquí se insertarán dinámicamente las filas -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="../models/js/facturas.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/qr-code-styling/lib/qr-code-styling.min.js"></script>
+
+      </body>
+    </html>

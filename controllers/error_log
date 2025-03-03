@@ -1,0 +1,30 @@
+[26-Feb-2025 21:43:22 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 256
+[26-Feb-2025 21:43:22 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 261
+[26-Feb-2025 21:43:34 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 256
+[26-Feb-2025 21:43:34 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 261
+[26-Feb-2025 21:44:48 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 256
+[26-Feb-2025 21:44:48 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 261
+[26-Feb-2025 21:47:01 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 256
+[26-Feb-2025 21:47:01 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 261
+[26-Feb-2025 21:49:18 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 256
+[26-Feb-2025 21:49:18 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 261
+[26-Feb-2025 21:49:37 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 256
+[26-Feb-2025 21:49:37 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 261
+[26-Feb-2025 21:52:36 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 256
+[26-Feb-2025 21:52:36 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 261
+[27-Feb-2025 11:40:54 America/Boise] PHP Warning:  Undefined variable $url in /home1/suctrasa/public_html/controllers/cd_conector.php on line 17
+[27-Feb-2025 11:40:54 America/Boise] PHP Warning:  Undefined array key "codigo" in /home1/suctrasa/public_html/controllers/cd_conector.php on line 46
+[27-Feb-2025 11:40:54 America/Boise] PHP Fatal error:  Uncaught Error: Call to a member function getNamespaces() on bool in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php:237
+Stack trace:
+#0 /home1/suctrasa/public_html/controllers/SelladoTimbrado.php(168): timbradoCFDI4('/home1/suctrasa...', 'Osvaldo Esparza', 'factura de prue...')
+#1 /home1/suctrasa/public_html/controllers/SelladoTimbrado.php(19): crearCFDI40()
+#2 {main}
+  thrown in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 237
+[27-Feb-2025 11:41:54 America/Boise] PHP Warning:  Undefined variable $url in /home1/suctrasa/public_html/controllers/cd_conector.php on line 17
+[27-Feb-2025 11:41:54 America/Boise] PHP Warning:  Undefined array key "codigo" in /home1/suctrasa/public_html/controllers/cd_conector.php on line 46
+[27-Feb-2025 11:41:54 America/Boise] PHP Fatal error:  Uncaught Error: Call to a member function getNamespaces() on bool in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php:237
+Stack trace:
+#0 /home1/suctrasa/public_html/controllers/SelladoTimbrado.php(168): timbradoCFDI4('/home1/suctrasa...', 'Osvaldo Esparza', 'factura de prue...')
+#1 /home1/suctrasa/public_html/controllers/SelladoTimbrado.php(19): crearCFDI40()
+#2 {main}
+  thrown in /home1/suctrasa/public_html/controllers/SelladoTimbrado.php on line 237

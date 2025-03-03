@@ -1,0 +1,307 @@
+/* ===== Variables Globales ===== */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --danger-color: #d9534f;
+  --light-bg-color: #f8f9fa;
+  --font-family: "Roboto", sans-serif;
+  --heading-font: "Montserrat", sans-serif;
+  --border-radius: 10px;
+  --box-shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --box-shadow-dark: 0 4px 15px rgba(0, 0, 0, 0.2);
+  --hover-bg-color: #f1f1f1;
+}
+
+.importe-card {
+  border: 2px solid #0d6efd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+.importe-card .card-header {
+  background-color: #0d6efd;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+.readonly-field input {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+}
+
+/* ===== General Styles ===== */
+body {
+  font-family: var(--font-family);
+  background-size: cover;
+  color: #343a40;
+}
+
+h1 {
+  font-family: var(--heading-font);
+  font-weight: bold;
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+}
+
+label {
+  font-weight: bold;
+}
+
+/* ===== Card Styles ===== */
+.card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-light);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: var(--box-shadow-dark);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+/* ===== Navbar ===== */
+.navbar-brand {
+  font-family: var(--heading-font);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* ===== Breadcrumb Estilos ===== */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background-color: #f8f9fa; /* Fondo claro */
+  border: 1px solid #dee2e6; /* Borde suave */
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-light);
+}
+
+.breadcrumb-item a.direcciones {
+  color: var(--primary-color); /* Azul principal */
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.breadcrumb-item a.direcciones:hover {
+  color: #0056b3; /* Azul más oscuro */
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: #6c757d; /* Gris suave */
+  font-weight: bold;
+}
+
+.breadcrumb-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #495057; /* Gris oscuro */
+  margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .breadcrumb {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Responsive Design for Breadcrumb */
+@media (max-width: 768px) {
+  .breadcrumb-title {
+    font-size: 1rem;
+  }
+
+  .custom-breadcrumb {
+    padding: 10px;
+  }
+}
+
+/* ===== Buttons ===== */
+#btnNuevaOrden {
+  background: green;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: transform 0.2s ease, background-color 0.3s ease-in-out;
+}
+
+#btnNuevaOrden:hover {
+  background: green;
+  transform: scale(1.05);
+}
+
+/* Botones con Bordes Dinámicos */
+.btn-icon {
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.btn-icon:hover {
+  color: var(--primary-color);
+}
+
+.btn-icon:focus {
+  outline: 2px dashed var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ===== Tables ===== */
+table,
+#userTable,
+#tablaOrdenesPendientes,
+#tablaOrdenesFinalizadasPropias,
+#tablaOrdenesFinalizadasOtros {
+  border: 8px solid #ddd;
+  border-radius: 18px;
+}
+
+.table {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: left;
+  padding: 10px;
+}
+
+.table-hover tbody tr:hover {
+  background-color: var(--hover-bg-color);
+}
+
+.table thead {
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: var(--light-bg-color);
+}
+
+/* DataTables */
+table.dataTable thead th {
+  text-align: center;
+}
+
+table.dataTable tbody td {
+  text-align: center;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: var(--hover-bg-color);
+}
+
+.dataTables_filter input {
+  border: 1px solid #ced4da;
+  border-radius: var(--border-radius);
+  padding: 5px;
+  width: 300px;
+}
+
+/* Resaltado Activo */
+.table tbody tr.active {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+/* ===== Forms ===== */
+.form-container {
+  margin: 2rem auto;
+  max-width: 900px;
+  background: var(--light-bg-color);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-dark);
+}
+
+.form-section {
+  border: 1px solid #dee2e6;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+}
+
+.form-section h6 {
+  margin-bottom: 1rem;
+  font-family: var(--heading-font);
+  font-weight: bold;
+  color: #495057;
+}
+
+/* ===== Photos ===== */
+.captured-photo {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: var(--border-radius);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.captured-photo:hover {
+  box-shadow: var(--box-shadow-dark);
+}
+
+/* ===== Alerts and Warnings ===== */
+.bg-light-danger {
+  background-color: #ffcccc !important;
+  color: black !important;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.loading .progress-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--primary-color);
+  border-radius: var(--border-radius);
+  transition: width 0.5s ease-in-out;
+}
+
+/* ===== Botón de Cierre ===== */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #f8f9fa;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.close-button:hover {
+  transform: scale(1.2);
+  color: #ff4d4d;
+}

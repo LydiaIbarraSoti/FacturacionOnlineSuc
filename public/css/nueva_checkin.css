@@ -1,0 +1,115 @@
+.collage-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .collage-item img {
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+    height: 400px; /* Ajusta esta altura según tus necesidades */
+    object-fit: cover;
+  }
+
+  .collage-caption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #27315c;
+    font-family: Raleway, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .collage-item:hover img {
+    transform: scale(1.1);
+  }
+
+  .collage-item:hover .collage-caption {
+    transform: translateY(0);
+  }
+    /* Estilo para la flecha */
+    .toggle-icon {
+      transition: transform 0.3s ease;
+  }
+
+  /* Rotación cuando el acordeón está abierto */
+  .toggle-icon.open {
+      transform: rotate(180deg); /* Rota 180 grados cuando está abierto */
+  }
+
+  /* Estilos para el contenedor de botones flotantes */
+.floating-btn-group {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.floating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #27315c; /* Color verde */
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.table th, .table td {
+  vertical-align: middle;
+  text-align:left
+}
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.table thead {
+  background: linear-gradient(to right, #6c757d, #343a40);
+  color: white;
+}
+table.dataTable {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+table.dataTable thead th {
+  background-color: #343a40; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+  text-align: center;
+}
+
+table.dataTable tbody td {
+  text-align: center;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: #f8f9fa; /* Fondo claro al pasar el mouse */
+}
+.dataTables_filter input {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 5px;
+  width: 300px; /* Ancho del cuadro de búsqueda */
+}
