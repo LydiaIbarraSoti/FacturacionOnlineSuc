@@ -39,7 +39,7 @@ class FileUpload
     public function buscarXML($folio)
     {
         $db = (new Database())->getConnection();
-        $sqlBuscar = "SELECT XML FROM REPOSITORIOS WHERE FOLIO = ?";
+        $sqlBuscar = "SELECT XML FROM REPOSITORIOS WHERE REPOSITORIO_ID = ?";
         $stmt = $db->prepare($sqlBuscar);
         $stmt->execute([$folio]);
         
