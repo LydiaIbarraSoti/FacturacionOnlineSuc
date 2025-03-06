@@ -58,8 +58,9 @@ function crearCFDI40() {
             throw new Exception('El archivo del certificado no fue encontrado en: ' . $rutaCertificado);
         }
         $certificado = new Certificado($rutaCertificado);
-        $iva = $importe * 0.16; 
-        $total = $importe + $iva; 
+        $iva = $importe * 0.16;
+        $ivaRetenido = $importe * 0.04; 
+        $total = $importe + $iva - $ivaRetenido; 
 
         $comprobanteAtributos = [
             'Version' => '4.0',
@@ -90,8 +91,8 @@ function crearCFDI40() {
             'DomicilioFiscalReceptor' => '35079', //$domicilioCFDI,
             'RegimenFiscalReceptor' => '601'//$regimenCFDI
         ]);
-
-        $comprobante->addConcepto([
+     
+        $concepto = $comprobante->addConcepto([
             'ClaveProdServ' => '78101802',
             'NoIdentificacion' => 'UT421511',
             'Cantidad' => '1',
@@ -101,28 +102,42 @@ function crearCFDI40() {
             'ValorUnitario' => $importe,
             'Importe' => $importe,
             'ObjetoImp' => '02'
-        ])->addTraslado([
-            'Base' => $importe,
-            'Impuesto' => '002',
-            'TipoFactor' => 'Tasa',
-            'TasaOCuota' => '0.160000',
-            'Importe' => $iva 
         ]);
-
-        $comprobante->addImpuestos([
-            'TotalImpuestosTrasladados' => $iva
-        ])->addTraslado([
+        $concepto->addTraslado([
             'Base' => $importe,
             'Impuesto' => '002',
             'TipoFactor' => 'Tasa',
             'TasaOCuota' => '0.160000',
-            'Importe' => $importe * 0.16 
-
+            'Importe' => $iva
+        ]);
+        $concepto->addRetencion([
+            'Base' => $importe,
+            'Impuesto' => '002', // IVA retenido
+            'TipoFactor' => 'Tasa',
+            'TasaOCuota' => '0.040000', // 4% de retención
+            'Importe' => $importe * 0.04
+        ]);
+        
+        // Agregar la retención dentro de la sección de impuestos
+        $impuestos = $comprobante->addImpuestos([
+            'TotalImpuestosTrasladados' => $iva,
+            'TotalImpuestosRetenidos' => $importe * 0.04  // IVA retenido
+        ]);
+        $impuestos->addTraslado([
+            'Base' => $importe,
+            'Impuesto' => '002',
+            'TipoFactor' => 'Tasa',
+            'TasaOCuota' => '0.160000',
+            'Importe' => $iva
+        ]);
+        $impuestos->addRetencion([            
+            'Impuesto' => '002', // IVA retenido            
+            'Importe' => $importe * 0.04
         ]);
 
         $rutaKey = file_get_contents(dirname(__FILE__) . '/CER_PRUEBAS/CSD_Sucursal_1_EKU9003173C9_20230517_223850.key.pem');
        // $rutaKey = file_get_contents(dirname(__FILE__) . '/CSD_MATRIZ_STR191030S77_20210614_113652.key.pem');
-        //$creator->addSello($rutaKey, '12345678a');
+       // $creator->addSello($rutaKey, '12345678a');
         $creator->addSello($rutaKey, 'anipocino');
         $creator->moveSatDefinitionsToComprobante();
 
@@ -141,7 +156,7 @@ function crearCFDI40() {
 
         // Llama a la función de timbrado pasando el nombre del archivo
         timbradoCFDI4($nombreArchivoXML, $usuario_creador, $descripcion);
-        generarURLFactura($nombreArchivoXML);
+        // generarURLFactura($nombreArchivoXML);
     }
 }
 
@@ -210,38 +225,44 @@ function timbradoCFDI4($nombreXML, $usuario_creador, $descripcion)
         }
 
         $xml = simplexml_load_string($xmlTimbrado); // Cargar el archivo XML
-        $namespaces = $xml->getNamespaces(true); // Obtener los espacios de nombres
+        if($xml === false){
+            // Si hay un error al cargar el XML, maneja el error aquí
+            echo "Error al cargar el XML.";
+        }else
+        {
+            $namespaces = $xml->getNamespaces(true); // Obtener los espacios de nombres
+                // Registrar los espacios de nombres
+            $xml->registerXPathNamespace('cfdi', $namespaces['cfdi']);
+            $xml->registerXPathNamespace('tfd', $namespaces['tfd']);
 
-        // Registrar los espacios de nombres
-        $xml->registerXPathNamespace('cfdi', $namespaces['cfdi']);
-        $xml->registerXPathNamespace('tfd', $namespaces['tfd']);
-
-        // Realizar la consulta XPath
-        foreach ($xml->xpath('//cfdi:Complemento/tfd:TimbreFiscalDigital') as $complemento) {
-            $uuid = $complemento['UUID'];
-        }
-
-        // Generar nombre del archivo basado en el original
-        $nombreArchivoTimbrado = $rutaGuardado . basename($nombreXML, ".xml") . "_". $uuid. "_timbrado.xml";
-
-        echo($nombreArchivoTimbrado);
-
-        // Guardar el archivo timbrado
-        if (file_put_contents($nombreArchivoTimbrado, $xmlTimbrado)) {
-            //echo "XML timbrado guardado correctamente en: " . $nombreArchivoTimbrado;
-            print_r($xmlTimbrado);
-           $respuesta =  guardarDatosFacturacion( $nombreArchivoTimbrado, $usuario_creador, $descripcion);
-
-           if ($respuesta["ESTATUS"] == "OK")
-           {
-            //echo "Datos fiscales guardados con éxito.";
-            echo "XML timbrado guardado correctamente en: " . $nombreArchivoTimbrado;
-            } else {
-                echo "Error al guardar datos fiscales: " . $respuesta["MSG"];
+            // Realizar la consulta XPath
+            foreach ($xml->xpath('//cfdi:Complemento/tfd:TimbreFiscalDigital') as $complemento) {
+                $uuid = $complemento['UUID'];
             }
-        } else {
-            echo "Error: No se pudo guardar el XML timbrado.";
+
+            // Generar nombre del archivo basado en el original
+            $nombreArchivoTimbrado = $rutaGuardado . basename($nombreXML, ".xml") . "_". $uuid. "_timbrado.xml";
+
+            echo($nombreArchivoTimbrado);
+
+            // Guardar el archivo timbrado
+            if (file_put_contents($nombreArchivoTimbrado, $xmlTimbrado)) {
+                //echo "XML timbrado guardado correctamente en: " . $nombreArchivoTimbrado;
+                print_r($xmlTimbrado);
+            $respuesta =  guardarDatosFacturacion( $nombreArchivoTimbrado, $usuario_creador, $descripcion);
+
+            if ($respuesta["ESTATUS"] == "OK")
+            {
+                //echo "Datos fiscales guardados con éxito.";
+                echo "XML timbrado guardado correctamente en: " . $nombreArchivoTimbrado;
+                } else {
+                    echo "Error al guardar datos fiscales: " . $respuesta["MSG"];
+                }
+            } else {
+                echo "Error: No se pudo guardar el XML timbrado.";
+            }
         }
+        
     } else {
         echo "Error al timbrar: " . $response["mensaje"];
     }

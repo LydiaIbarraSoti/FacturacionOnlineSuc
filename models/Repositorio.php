@@ -10,7 +10,7 @@ class Repositorio {
 
     // Método para obtener las facturas filtradas por el nombre del usuario
     public function getFacturasByUser($userName) {
-        $query = "SELECT FOLIO, FECHA_FACTURA, RFC_EMISOR, RFC_RECEPTOR, METODO_PAGO, TOTAL 
+        $query = "SELECT REPOSITORIO_ID, FOLIO, FECHA_FACTURA, RFC_EMISOR, RFC_RECEPTOR, METODO_PAGO, TOTAL 
                   FROM " . $this->table . " 
                   WHERE USUARIO_CREADOR = :usuario";
         $stmt = $this->conn->prepare($query);

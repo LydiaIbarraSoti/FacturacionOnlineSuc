@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <td>${factura.METODO_PAGO}</td>
               <td>${factura.TOTAL}</td>
               <td class="text-center">
-                <button class="btn btn-primary btn-descargarPDF" data-id="${factura.FOLIO}" onClick="upload(${factura.FOLIO})" >Descargar PDF</button>
+                <button class="btn btn-primary btn-descargarPDF" data-id="${factura.REPOSITORIO_ID}" onClick="upload(${factura.REPOSITORIO_ID})" >Descargar PDF</button>
             </td>
             `;
           tableBody.appendChild(tr);

@@ -20,7 +20,7 @@ function timbrar($xmlData, $svc_user, $svc_pwd, $pruebas){
     curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlData);
     curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-   // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Desactiva la verificación SSL
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Desactiva la verificación SSL, para pruebas
 
     curl_setopt(
         $ch,
